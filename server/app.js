@@ -48,7 +48,11 @@ passport.use(
 		},
 		function(accessToken, refreshToken, profile, cb) {
 			const { displayName, username, emails } = profile;
-			let email = emails[0].value;
+                        if (emails != null) {
+                            let email = emails[0].value;
+                        } else {
+                            let email = "";
+                        }
 			db.gitHubUser(username, email, displayName).then(user => {
 				return cb(null, user);
 			});
